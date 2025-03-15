@@ -1,5 +1,6 @@
 package com.vhaalz.task_manager.services;
 
+import com.vhaalz.task_manager.jwt.JWTService;
 import com.vhaalz.task_manager.models.User;
 import com.vhaalz.task_manager.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,12 @@ public class UserService {
     @Autowired
     private AuthenticationManager authManager;
 
+    @Autowired
+    private JWTService jwtService;
+
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 
     public void register(User user) {
-
         user.setPassword(encoder.encode(user.getPassword()));
         repo.save(user);
     }
@@ -33,7 +36,7 @@ public class UserService {
                     )
                 );
         if (authentication.isAuthenticated()){
-            return "Login Successfully";
+            return jwtService.generateToken(user.getUsername());
         }
         return "Failed";
     }
