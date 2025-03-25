@@ -20,7 +20,6 @@ public class UserController {
     private ResponseEntity<User> register(@RequestBody User user){
 
         User user1 = new User();
-
         user1.setUsername(user.getUsername());
         user1.setEmail(user.getEmail());
         user1.setPassword(user.getPassword());
