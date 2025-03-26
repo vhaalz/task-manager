@@ -26,7 +26,6 @@ public class TaskController {
 
     @PostMapping("/")
     private ResponseEntity<Task> createTask(@RequestBody Task task){
-
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(task));
     }
 
