@@ -2,6 +2,7 @@ package com.vhaalz.task_manager.controllers;
 
 import com.vhaalz.task_manager.models.Task;
 import com.vhaalz.task_manager.services.TaskService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class TaskController {
 //    }
 
     @PostMapping("/")
-    private ResponseEntity<Task> createTask(@RequestBody Task task){
+    private ResponseEntity<Task> createTask(@Valid @RequestBody Task task){
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(task));
     }
 

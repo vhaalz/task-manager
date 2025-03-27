@@ -1,8 +1,12 @@
 package com.vhaalz.task_manager.services;
 
+import com.vhaalz.task_manager.domain.Mapper;
+import com.vhaalz.task_manager.domain.UserRequest;
 import com.vhaalz.task_manager.jwt.JWTService;
 import com.vhaalz.task_manager.models.User;
 import com.vhaalz.task_manager.repos.UserRepo;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,22 +15,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepo repo;
 
-    @Autowired
-    private AuthenticationManager authManager;
-
-    @Autowired
-    private JWTService jwtService;
-
+    private final UserRepo repo;
+    private final AuthenticationManager authManager;
+    private final JWTService jwtService;
+    private final Mapper mapper;
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 
-    public void register(User user) {
+
+    public Long register(@Valid UserRequest request) {
+
+        var user = mapper.toUser(request);
         user.setPassword(encoder.encode(user.getPassword()));
-        repo.save(user);
+       return repo.save(user).getId();
     }
 
     public String verify(User user) {
@@ -40,4 +44,6 @@ public class UserService {
         }
         return "Failed";
     }
+
+
 }
