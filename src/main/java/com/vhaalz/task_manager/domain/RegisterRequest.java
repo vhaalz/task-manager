@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Valid
-public record UserRequest(
+public record RegisterRequest(
 
         Long id,
 

@@ -1,13 +1,12 @@
 package com.vhaalz.task_manager.services;
 
 import com.vhaalz.task_manager.domain.Mapper;
-import com.vhaalz.task_manager.domain.UserRequest;
+import com.vhaalz.task_manager.domain.RegisterRequest;
 import com.vhaalz.task_manager.jwt.JWTService;
 import com.vhaalz.task_manager.models.User;
 import com.vhaalz.task_manager.repos.UserRepo;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,7 +25,7 @@ public class UserService {
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 
 
-    public Long register(@Valid UserRequest request) {
+    public Long register(@Valid RegisterRequest request) {
 
         var user = mapper.toUser(request);
         user.setPassword(encoder.encode(user.getPassword()));

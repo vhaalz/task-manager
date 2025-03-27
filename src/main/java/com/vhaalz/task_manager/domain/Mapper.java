@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class Mapper {
-    public User toUser(UserRequest request) {
+    public User toUser(RegisterRequest request) {
         return User.builder()
                 .username(request.username())
                 .password(request.password())

@@ -1,6 +1,6 @@
 package com.vhaalz.task_manager.controllers;
 
-import com.vhaalz.task_manager.domain.UserRequest;
+import com.vhaalz.task_manager.domain.RegisterRequest;
 import com.vhaalz.task_manager.models.User;
 import com.vhaalz.task_manager.services.UserService;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class UserController {
    private final UserService service;
 
     @PostMapping("/register")
-    private ResponseEntity<Long> register(@Valid @RequestBody UserRequest request){
+    private ResponseEntity<Long> register(@Valid @RequestBody RegisterRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.register(request));
     }
 
