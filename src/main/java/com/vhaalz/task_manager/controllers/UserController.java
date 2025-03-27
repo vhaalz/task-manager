@@ -1,5 +1,6 @@
 package com.vhaalz.task_manager.controllers;
 
+import com.vhaalz.task_manager.domain.LoginRequest;
 import com.vhaalz.task_manager.domain.RegisterRequest;
 import com.vhaalz.task_manager.models.User;
 import com.vhaalz.task_manager.services.UserService;
@@ -24,8 +25,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    private String login(@RequestBody User user){
-        return service.verify(user);
+    private String login(@Valid @RequestBody LoginRequest request){
+        return service.verify(request);
     }
 
 }
