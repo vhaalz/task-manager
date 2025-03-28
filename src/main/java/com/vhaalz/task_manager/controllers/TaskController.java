@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
@@ -18,17 +20,12 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping("/")
-    private String home(){
-        return "Home!!!";
+    private List<TaskResponse> allTask(){
+        return taskService.getAllTasksByUserId();
     }
 
-//    @GetMapping("/all")
-//    private List<User> getAllUsers(){
-//        return repo.findAll();
-//    }
-
     @PostMapping("/")
-    private ResponseEntity<Task> createTask(@Valid @RequestBody CreateTaskRequest request){
+    private ResponseEntity<TaskResponse> createTask(@Valid @RequestBody CreateTaskRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(request));
     }
 
