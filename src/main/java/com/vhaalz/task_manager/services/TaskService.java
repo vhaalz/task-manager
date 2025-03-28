@@ -23,7 +23,7 @@ public class TaskService {
     private final Mapper mapper;
     private final TaskRepo taskRepo;
 
-    public Void createTask(CreateTaskRequest request) {
+    public Long createTask(CreateTaskRequest request) {
 
         User currentUser = myUserDetailsService.getCurrentUser();
 
@@ -35,9 +35,7 @@ public class TaskService {
         req.setCreatedAt(LocalDateTime.now());
         req.setUserId(currentUser.getId());
 
-       taskRepo.save(req);
-
-       return null;
+       return taskRepo.save(req).getId();
     }
 
     public List<AllTaskResponse> getAllTasksByUserId() {
