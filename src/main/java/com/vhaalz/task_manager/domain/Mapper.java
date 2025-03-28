@@ -14,14 +14,11 @@ public class Mapper {
                 .build();
     }
 
-    public TaskResponse fromTask(Task task){
-        return new TaskResponse(
-                task.getId(),
+    public AllTaskResponse fromTask(Task task){
+        return new AllTaskResponse(
                 task.getTitle(),
                 task.getDescription(),
                 task.getStatus(),
-                task.getUserId(),
-                task.getDueDate(),
                 task.getCreatedAt()
         );
     }

@@ -1,8 +1,7 @@
 package com.vhaalz.task_manager.controllers;
 
 import com.vhaalz.task_manager.domain.CreateTaskRequest;
-import com.vhaalz.task_manager.domain.TaskResponse;
-import com.vhaalz.task_manager.models.Task;
+import com.vhaalz.task_manager.domain.AllTaskResponse;
 import com.vhaalz.task_manager.services.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +19,12 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping("/")
-    private List<TaskResponse> allTask(){
+    private List<AllTaskResponse> allTask(){
         return taskService.getAllTasksByUserId();
     }
 
     @PostMapping("/")
-    private ResponseEntity<TaskResponse> createTask(@Valid @RequestBody CreateTaskRequest request){
+    private ResponseEntity<Void> createTask(@Valid @RequestBody CreateTaskRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(request));
     }
 

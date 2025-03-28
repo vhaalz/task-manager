@@ -3,7 +3,7 @@ package com.vhaalz.task_manager.services;
 import com.vhaalz.task_manager.config.MyUserDetailsService;
 import com.vhaalz.task_manager.domain.CreateTaskRequest;
 import com.vhaalz.task_manager.domain.Mapper;
-import com.vhaalz.task_manager.domain.TaskResponse;
+import com.vhaalz.task_manager.domain.AllTaskResponse;
 import com.vhaalz.task_manager.domain.TaskStatus;
 import com.vhaalz.task_manager.models.Task;
 import com.vhaalz.task_manager.models.User;
@@ -23,7 +23,7 @@ public class TaskService {
     private final Mapper mapper;
     private final TaskRepo taskRepo;
 
-    public TaskResponse createTask(CreateTaskRequest request) {
+    public Void createTask(CreateTaskRequest request) {
 
         User currentUser = myUserDetailsService.getCurrentUser();
 
@@ -35,12 +35,12 @@ public class TaskService {
         req.setCreatedAt(LocalDateTime.now());
         req.setUserId(currentUser.getId());
 
-       var createdTask = taskRepo.save(req);
+       taskRepo.save(req);
 
-       return mapper.fromTask(createdTask);
+       return null;
     }
 
-    public List<TaskResponse> getAllTasksByUserId() {
+    public List<AllTaskResponse> getAllTasksByUserId() {
 
         User currentUser = myUserDetailsService.getCurrentUser();
         var tasks = taskRepo.findByUserId(currentUser.getId());
