@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 public record AllTaskResponse(
 
+        Long id,
+
         String title,
 
         String description,

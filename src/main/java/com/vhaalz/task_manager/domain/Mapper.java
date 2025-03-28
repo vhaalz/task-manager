@@ -16,6 +16,7 @@ public class Mapper {
 
     public AllTaskResponse fromTask(Task task){
         return new AllTaskResponse(
+                task.getId(),
                 task.getTitle(),
                 task.getDescription(),
                 task.getStatus(),
