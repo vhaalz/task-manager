@@ -29,9 +29,15 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(request));
     }
 
-    @PutMapping("/{u_id}")
-    private ResponseEntity<UpdateTaskResponse> updateTask(@PathVariable Long u_id, @RequestBody CreateTaskRequest request){
-        return ResponseEntity.ok(taskService.updateTask(u_id, request));
+    @PutMapping("/{id}")
+    private ResponseEntity<UpdateTaskResponse> updateTask(@PathVariable Long id, @RequestBody CreateTaskRequest request){
+        return ResponseEntity.ok(taskService.updateTask(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    private ResponseEntity<Void> deleteTask(@PathVariable Long id){
+        taskService.deleteTask(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

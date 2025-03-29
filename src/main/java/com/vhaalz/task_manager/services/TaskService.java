@@ -46,6 +46,14 @@ public class TaskService {
     }
 
     public UpdateTaskResponse updateTask(Long id ,CreateTaskRequest request) {
+
+        var user = taskRepo.findById(id).orElseThrow();
+
+
         return null;
+    }
+
+    public void deleteTask(Long id) {
+        taskRepo.deleteById(id);
     }
 }
