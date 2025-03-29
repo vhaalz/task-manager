@@ -2,6 +2,7 @@ package com.vhaalz.task_manager.controllers;
 
 import com.vhaalz.task_manager.domain.CreateTaskRequest;
 import com.vhaalz.task_manager.domain.AllTaskResponse;
+import com.vhaalz.task_manager.domain.UpdateTaskResponse;
 import com.vhaalz.task_manager.services.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,11 @@ public class TaskController {
     @PostMapping("/")
     private ResponseEntity<Long> createTask(@Valid @RequestBody CreateTaskRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(request));
+    }
+
+    @PutMapping("/{u_id}")
+    private ResponseEntity<UpdateTaskResponse> updateTask(@PathVariable Long u_id, @RequestBody CreateTaskRequest request){
+        return ResponseEntity.ok(taskService.updateTask(u_id, request));
     }
 
 }

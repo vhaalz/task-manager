@@ -1,10 +1,7 @@
 package com.vhaalz.task_manager.services;
 
 import com.vhaalz.task_manager.config.MyUserDetailsService;
-import com.vhaalz.task_manager.domain.CreateTaskRequest;
-import com.vhaalz.task_manager.domain.Mapper;
-import com.vhaalz.task_manager.domain.AllTaskResponse;
-import com.vhaalz.task_manager.domain.TaskStatus;
+import com.vhaalz.task_manager.domain.*;
 import com.vhaalz.task_manager.models.Task;
 import com.vhaalz.task_manager.models.User;
 import com.vhaalz.task_manager.repos.TaskRepo;
@@ -46,5 +43,9 @@ public class TaskService {
         return tasks.stream()
                 .map(mapper::fromTask)
                 .collect(Collectors.toList());
+    }
+
+    public UpdateTaskResponse updateTask(Long id ,CreateTaskRequest request) {
+        return null;
     }
 }
