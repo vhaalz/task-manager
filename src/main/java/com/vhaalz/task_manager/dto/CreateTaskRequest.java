@@ -10,20 +10,10 @@ import java.util.UUID;
 @Valid
 public record CreateTaskRequest(
 
-        UUID id,
-
         @NotNull(message = "Title is required")
         String title,
 
-        String description,
-
-        TaskStatus status,
-
-        UUID userId,
-
-        LocalDateTime dueDate,
-
-        LocalDateTime createdAt
+        String description
 
 ) {
 }

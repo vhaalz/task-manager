@@ -32,10 +32,12 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
-    @Column(name = "user_id", nullable = false)
-    private UUID userId;
+//    @Column(name = "user_id", nullable = false)
+//    private UUID userId;
 
-    private String assignedToId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="user_id", nullable = false)
+    private User user;
 
     private LocalDateTime dueDate;
 

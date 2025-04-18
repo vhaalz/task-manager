@@ -34,7 +34,7 @@ public class TaskService {
         req.setDescription(request.description());
         req.setStatus(TaskStatus.PENDING);
         req.setCreatedAt(LocalDateTime.now());
-        req.setUserId(currentUser.getId());
+        req.setUser(currentUser);
 
        return taskRepo.save(req).getId();
     }
