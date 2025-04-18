@@ -1,14 +1,16 @@
-package com.vhaalz.task_manager.domain;
+package com.vhaalz.task_manager.dto;
 
+import com.vhaalz.task_manager.domain.TaskStatus;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Valid
 public record CreateTaskRequest(
 
-        Long id,
+        UUID id,
 
         @NotNull(message = "Title is required")
         String title,
@@ -17,7 +19,7 @@ public record CreateTaskRequest(
 
         TaskStatus status,
 
-        Long userId,
+        UUID userId,
 
         LocalDateTime dueDate,
 

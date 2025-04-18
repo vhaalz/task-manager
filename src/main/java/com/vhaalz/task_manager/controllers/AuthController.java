@@ -1,26 +1,25 @@
 package com.vhaalz.task_manager.controllers;
 
-import com.vhaalz.task_manager.domain.LoginRequest;
-import com.vhaalz.task_manager.domain.RegisterRequest;
-import com.vhaalz.task_manager.models.User;
-import com.vhaalz.task_manager.services.UserService;
+import com.vhaalz.task_manager.dto.LoginRequest;
+import com.vhaalz.task_manager.dto.RegisterRequest;
+import com.vhaalz.task_manager.services.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
-public class UserController {
+public class AuthController {
 
-   private final UserService service;
+   private final AuthService service;
 
     @PostMapping("/register")
-    private ResponseEntity<Long> register(@Valid @RequestBody RegisterRequest request){
+    private ResponseEntity<UUID> register(@Valid @RequestBody RegisterRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.register(request));
     }
 

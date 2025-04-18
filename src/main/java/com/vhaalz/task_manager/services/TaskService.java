@@ -2,6 +2,9 @@ package com.vhaalz.task_manager.services;
 
 import com.vhaalz.task_manager.config.MyUserDetailsService;
 import com.vhaalz.task_manager.domain.*;
+import com.vhaalz.task_manager.dto.AllTaskResponse;
+import com.vhaalz.task_manager.dto.CreateTaskRequest;
+import com.vhaalz.task_manager.dto.UpdateTaskResponse;
 import com.vhaalz.task_manager.models.Task;
 import com.vhaalz.task_manager.models.User;
 import com.vhaalz.task_manager.repos.TaskRepo;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,7 +24,7 @@ public class TaskService {
     private final Mapper mapper;
     private final TaskRepo taskRepo;
 
-    public Long createTask(CreateTaskRequest request) {
+    public UUID createTask(CreateTaskRequest request) {
 
         User currentUser = myUserDetailsService.getCurrentUser();
 
@@ -45,7 +49,7 @@ public class TaskService {
                 .collect(Collectors.toList());
     }
 
-    public UpdateTaskResponse updateTask(Long id ,CreateTaskRequest request) {
+    public UpdateTaskResponse updateTask(UUID id , CreateTaskRequest request) {
 
         var user = taskRepo.findById(id).orElseThrow();
 
@@ -53,7 +57,7 @@ public class TaskService {
         return null;
     }
 
-    public void deleteTask(Long id) {
+    public void deleteTask(UUID id) {
         taskRepo.deleteById(id);
     }
 }

@@ -1,8 +1,8 @@
 package com.vhaalz.task_manager.services;
 
-import com.vhaalz.task_manager.domain.LoginRequest;
+import com.vhaalz.task_manager.dto.LoginRequest;
 import com.vhaalz.task_manager.domain.Mapper;
-import com.vhaalz.task_manager.domain.RegisterRequest;
+import com.vhaalz.task_manager.dto.RegisterRequest;
 import com.vhaalz.task_manager.jwt.JWTService;
 import com.vhaalz.task_manager.repos.UserRepo;
 import lombok.AllArgsConstructor;
@@ -12,9 +12,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
-public class UserService {
+public class AuthService {
 
 
     private final UserRepo repo;
@@ -24,8 +26,7 @@ public class UserService {
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 
 
-    public Long register(RegisterRequest request) {
-
+    public UUID register(RegisterRequest request) {
         var user = mapper.toUser(request);
         user.setPassword(encoder.encode(user.getPassword()));
        return repo.save(user).getId();
@@ -34,11 +35,11 @@ public class UserService {
     public String verify(LoginRequest request) {
         Authentication authentication =
                 authManager.authenticate(new UsernamePasswordAuthenticationToken(
-                        request.username(), request.password()
+                        request.email(), request.password()
                     )
                 );
         if (authentication.isAuthenticated()){
-            return jwtService.generateToken(request.username());
+            return jwtService.generateToken(request.email());
         }
         return "Failed";
     }

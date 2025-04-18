@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
@@ -18,8 +19,8 @@ import java.time.LocalDateTime;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid2")
+    private UUID id;
 
     @NotBlank(message = "Title is required")
     @Size(max = 255, message = "Title must be at most 255 characters")
@@ -32,9 +33,9 @@ public class Task {
     private TaskStatus status;
 
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private UUID userId;
 
-    private Long assignedToId;
+    private String assignedToId;
 
     private LocalDateTime dueDate;
 

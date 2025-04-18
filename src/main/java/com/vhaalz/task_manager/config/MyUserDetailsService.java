@@ -18,8 +18,8 @@ public class MyUserDetailsService implements UserDetailsService {
     UserRepo repo;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = repo.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = repo.findByEmail(email);
 
         if (user == null){
             throw new UsernameNotFoundException("User not found");
@@ -30,7 +30,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName(); // get the username from the Authentication object
-        return repo.findByUsername(username); // Use the username to fetch the User entity from DB
+        return repo.findByEmail(username); // Use the username to fetch the User entity from DB
     }
 
 }

@@ -1,10 +1,13 @@
-package com.vhaalz.task_manager.domain;
+package com.vhaalz.task_manager.dto;
+
+import com.vhaalz.task_manager.domain.TaskStatus;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public record AllTaskResponse(
 
-        Long id,
+        UUID id,
 
         String title,
 
