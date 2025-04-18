@@ -2,6 +2,7 @@ package com.vhaalz.task_manager.controllers;
 
 import com.vhaalz.task_manager.dto.CreateTaskRequest;
 import com.vhaalz.task_manager.dto.AllTaskResponse;
+import com.vhaalz.task_manager.dto.TaskResponse;
 import com.vhaalz.task_manager.dto.UpdateTaskResponse;
 import com.vhaalz.task_manager.services.TaskService;
 import jakarta.validation.Valid;
@@ -23,6 +24,11 @@ public class TaskController {
     @GetMapping("/")
     private List<AllTaskResponse> allTask(){
         return taskService.getAllTasksByUserId();
+    }
+
+    @GetMapping("/{task-id}")
+    private ResponseEntity<TaskResponse> getTask(@PathVariable("task-id") UUID id){
+        return ResponseEntity.ok(taskService.getTaskById(id));
     }
 
     @PostMapping("/")

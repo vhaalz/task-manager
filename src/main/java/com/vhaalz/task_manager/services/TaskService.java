@@ -4,6 +4,7 @@ import com.vhaalz.task_manager.config.MyUserDetailsService;
 import com.vhaalz.task_manager.domain.*;
 import com.vhaalz.task_manager.dto.AllTaskResponse;
 import com.vhaalz.task_manager.dto.CreateTaskRequest;
+import com.vhaalz.task_manager.dto.TaskResponse;
 import com.vhaalz.task_manager.dto.UpdateTaskResponse;
 import com.vhaalz.task_manager.models.Task;
 import com.vhaalz.task_manager.models.User;
@@ -53,11 +54,16 @@ public class TaskService {
 
         var user = taskRepo.findById(id).orElseThrow();
 
-
         return null;
     }
 
     public void deleteTask(UUID id) {
         taskRepo.deleteById(id);
+    }
+
+    public TaskResponse getTaskById(UUID id) {
+        var task = taskRepo.findById(id).orElseThrow();
+
+        return mapper.fromSingleTask(task);
     }
 }
