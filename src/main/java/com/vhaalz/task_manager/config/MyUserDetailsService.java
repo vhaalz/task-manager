@@ -22,15 +22,15 @@ public class MyUserDetailsService implements UserDetailsService {
         User user = repo.findByEmail(email);
 
         if (user == null){
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException("cannot find user with the email: "+email);
         }
         return new UserPrincipal(user);
     }
 
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName(); // get the username from the Authentication object
-        return repo.findByEmail(username); // Use the username to fetch the User entity from DB
+        String email = authentication.getName(); // get the username from the Authentication object
+        return repo.findByEmail(email); // Use the username to fetch the User entity from DB
     }
 
 }

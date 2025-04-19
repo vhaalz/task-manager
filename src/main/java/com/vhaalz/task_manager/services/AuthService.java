@@ -3,9 +3,11 @@ package com.vhaalz.task_manager.services;
 import com.vhaalz.task_manager.dto.LoginRequest;
 import com.vhaalz.task_manager.domain.Mapper;
 import com.vhaalz.task_manager.dto.RegisterRequest;
+import com.vhaalz.task_manager.exception.EmailAlreadyExistsException;
 import com.vhaalz.task_manager.jwt.JWTService;
 import com.vhaalz.task_manager.repos.UserRepo;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+
 
 @Service
 @AllArgsConstructor
@@ -27,6 +30,9 @@ public class AuthService {
 
 
     public UUID register(RegisterRequest request) {
+        if(repo.existsByEmail(request.email())){
+            throw new EmailAlreadyExistsException("email already exist");
+        }
         var user = mapper.toUser(request);
         user.setPassword(encoder.encode(user.getPassword()));
        return repo.save(user).getId();

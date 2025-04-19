@@ -1,6 +1,8 @@
 package com.vhaalz.task_manager.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -20,6 +22,9 @@ public class User {
     @GeneratedValue(generator = "uuid2")
     private UUID id;
 
+    @NotNull(message = "email is required")
+    @Email(message = "enter a valid email")
+    @Column(nullable = false, unique = true)
     private String email;
 
     private String password;

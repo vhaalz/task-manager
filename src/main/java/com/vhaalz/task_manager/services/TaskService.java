@@ -6,6 +6,7 @@ import com.vhaalz.task_manager.dto.AllTaskResponse;
 import com.vhaalz.task_manager.dto.CreateTaskRequest;
 import com.vhaalz.task_manager.dto.TaskResponse;
 import com.vhaalz.task_manager.dto.UpdateTaskResponse;
+import com.vhaalz.task_manager.exception.TaskNotFoundException;
 import com.vhaalz.task_manager.models.Task;
 import com.vhaalz.task_manager.models.User;
 import com.vhaalz.task_manager.repos.TaskRepo;
@@ -52,7 +53,9 @@ public class TaskService {
 
     public UpdateTaskResponse updateTask(UUID id , CreateTaskRequest request) {
 
-        var user = taskRepo.findById(id).orElseThrow();
+        var user = taskRepo.findById(id).orElseThrow(
+                () -> new TaskNotFoundException("task not found")
+        );
 
         return null;
     }
@@ -62,7 +65,9 @@ public class TaskService {
     }
 
     public TaskResponse getTaskById(UUID id) {
-        var task = taskRepo.findById(id).orElseThrow();
+        var task = taskRepo.findById(id).orElseThrow(
+                () -> new TaskNotFoundException("task not found")
+        );
 
         return mapper.fromSingleTask(task);
     }
